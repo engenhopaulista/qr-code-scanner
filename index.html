@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <script src="https://unpkg.com/html5-qrcode" defer></script>
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+         text-align: center;
+         margin: 25px;
+      }
+      
+      #scanner-container {
+         display: none;
+         margin-top: 20px;
+      }
+      
+      button {
+         padding: 10px 20px;
+         font-size: 16px;
+         cursor: pointer;
+         background-color: #007bff;
+         color: white;
+         border: none;
+         border-radius: 5px;
+      }
+      
+      button:hover {
+         background-color: #0056b3;
+      }
+   </style>
+</head>
+<body>
+   <div style="text-align: center;">
+      <button id="scanButton" style="width: 100px; height: auto; padding: 20px 20px; font-size: 16px; cursor: pointer; margin-bottom: 20px;">Abrir Scanner</button>
+      <div id="reader" style="width: 100%; max-width: 700px; margin: auto; display: none;"></div>
+   </div>
+   <script>
+      document.getElementById("scanButton").addEventListener("click", function() {
+         document.getElementById('reader').style.display = 'block';
+         const html5QrCode = new Html5Qrcode("reader");
+      
+         html5QrCode.start(
+            { facingMode: "environment" },
+            { fps: 10, qrbox: 250 },
+            (decodedText) => {
+               window.location.href = decodedText;
+               html5QrCode.stop();
+            },
+            (errorMessage) => {
+               console.log(errorMessage);
+            }
+         ).catch(err => console.log(err));
+      });
+   </script>
+</body>
+</html>
