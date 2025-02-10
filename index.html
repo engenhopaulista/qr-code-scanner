@@ -19,18 +19,17 @@
 </head>
 <body>
 
-    <h1>Escaneie o QR Code</h1>
     <div id="qr-reader"></div>
 
     <script>
         function iniciarScanner() {
             const html5QrCode = new Html5Qrcode("qr-reader");
             html5QrCode.start(
-                { facingMode: "environment" }, // Câmera traseira
+                { facingMode: "environment" }, 
                 { fps: 10, qrbox: { width: 250, height: 250 } },
                 (decodedText) => {
-                    html5QrCode.stop(); // Para o scanner após a leitura
-                    window.location.href = decodedText; // Redireciona automaticamente
+                    html5QrCode.stop();
+                    window.location.href = decodedText; 
                 },
                 (errorMessage) => {
                     console.log(errorMessage);
@@ -38,7 +37,6 @@
             ).catch((err) => console.log(err));
         }
 
-        // Inicia automaticamente quando a página carregar
         window.onload = iniciarScanner;
     </script>
 
